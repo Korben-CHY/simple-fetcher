@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.covid.component.mapper.CovidDataMapper">
+  <resultMap id="BaseResultMap" type="com.covid.component.domain.CovidData">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="confirmed" jdbcType="INTEGER" property="confirmed" />
+    <result column="died" jdbcType="INTEGER" property="died" />
+    <result column="crued" jdbcType="INTEGER" property="crued" />
+    <result column="asymptomatic" jdbcType="INTEGER" property="asymptomatic" />
+    <result column="cur_confirm" jdbcType="INTEGER" property="curConfirm" />
+    <result column="cur_confirm_relative" jdbcType="INTEGER" property="curConfirmRelative" />
+    <result column="relative_time" jdbcType="BIGINT" property="relativeTime" />
+    <result column="confirmed_relative" jdbcType="INTEGER" property="confirmedRelative" />
+    <result column="died_relative" jdbcType="INTEGER" property="diedRelative" />
+    <result column="cured_relative" jdbcType="INTEGER" property="curedRelative" />
+    <result column="asymptomatic_relative" jdbcType="INTEGER" property="asymptomaticRelative" />
+    <result column="native_relative" jdbcType="INTEGER" property="nativeRelative" />
+    <result column="screening_positive" jdbcType="INTEGER" property="screeningPositive" />
+    <result column="overseas_input_relative" jdbcType="INTEGER" property="overseasInputRelative" />
+    <result column="icu_disable" jdbcType="INTEGER" property="icuDisable" />
+    <result column="update_time" jdbcType="BIGINT" property="updateTime" />
+    <result column="area" jdbcType="VARCHAR" property="area" />
+    <result column="no_native_relative_days" jdbcType="VARCHAR" property="noNativeRelativeDays" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, confirmed, died, crued, asymptomatic, cur_confirm, cur_confirm_relative, relative_time, 
+    confirmed_relative, died_relative, cured_relative, asymptomatic_relative, native_relative, 
+    screening_positive, overseas_input_relative, icu_disable, update_time, area, no_native_relative_days, 
+    create_time
+  </sql>
+  <select id="selectByExample" parameterType="com.covid.component.domain.CovidDataExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from covid_data
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from covid_data
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from covid_data
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.covid.component.domain.CovidDataExample">
+    delete from covid_data
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.covid.component.domain.CovidData">
+    insert into covid_data (id, confirmed, died, 
+      crued, asymptomatic, cur_confirm, 
+      cur_confirm_relative, relative_time, confirmed_relative, 
+      died_relative, cured_relative, asymptomatic_relative, 
+      native_relative, screening_positive, overseas_input_relative, 
+      icu_disable, update_time, area, 
+      no_native_relative_days, create_time)
+    values (#{id,jdbcType=INTEGER}, #{confirmed,jdbcType=INTEGER}, #{died,jdbcType=INTEGER}, 
+      #{crued,jdbcType=INTEGER}, #{asymptomatic,jdbcType=INTEGER}, #{curConfirm,jdbcType=INTEGER}, 
+      #{curConfirmRelative,jdbcType=INTEGER}, #{relativeTime,jdbcType=BIGINT}, #{confirmedRelative,jdbcType=INTEGER}, 
+      #{diedRelative,jdbcType=INTEGER}, #{curedRelative,jdbcType=INTEGER}, #{asymptomaticRelative,jdbcType=INTEGER}, 
+      #{nativeRelative,jdbcType=INTEGER}, #{screeningPositive,jdbcType=INTEGER}, #{overseasInputRelative,jdbcType=INTEGER}, 
+      #{icuDisable,jdbcType=INTEGER}, #{updateTime,jdbcType=BIGINT}, #{area,jdbcType=VARCHAR}, 
+      #{noNativeRelativeDays,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.covid.component.domain.CovidData">
+    insert into covid_data
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="confirmed != null">
+        confirmed,
+      </if>
+      <if test="died != null">
+        died,
+      </if>
+      <if test="crued != null">
+        crued,
+      </if>
+      <if test="asymptomatic != null">
+        asymptomatic,
+      </if>
+      <if test="curConfirm != null">
+        cur_confirm,
+      </if>
+      <if test="curConfirmRelative != null">
+        cur_confirm_relative,
+      </if>
+      <if test="relativeTime != null">
+        relative_time,
+      </if>
+      <if test="confirmedRelative != null">
+        confirmed_relative,
+      </if>
+      <if test="diedRelative != null">
+        died_relative,
+      </if>
+      <if test="curedRelative != null">
+        cured_relative,
+      </if>
+      <if test="asymptomaticRelative != null">
+        asymptomatic_relative,
+      </if>
+      <if test="nativeRelative != null">
+        native_relative,
+      </if>
+      <if test="screeningPositive != null">
+        screening_positive,
+      </if>
+      <if test="overseasInputRelative != null">
+        overseas_input_relative,
+      </if>
+      <if test="icuDisable != null">
+        icu_disable,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="area != null">
+        area,
+      </if>
+      <if test="noNativeRelativeDays != null">
+        no_native_relative_days,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="confirmed != null">
+        #{confirmed,jdbcType=INTEGER},
+      </if>
+      <if test="died != null">
+        #{died,jdbcType=INTEGER},
+      </if>
+      <if test="crued != null">
+        #{crued,jdbcType=INTEGER},
+      </if>
+      <if test="asymptomatic != null">
+        #{asymptomatic,jdbcType=INTEGER},
+      </if>
+      <if test="curConfirm != null">
+        #{curConfirm,jdbcType=INTEGER},
+      </if>
+      <if test="curConfirmRelative != null">
+        #{curConfirmRelative,jdbcType=INTEGER},
+      </if>
+      <if test="relativeTime != null">
+        #{relativeTime,jdbcType=BIGINT},
+      </if>
+      <if test="confirmedRelative != null">
+        #{confirmedRelative,jdbcType=INTEGER},
+      </if>
+      <if test="diedRelative != null">
+        #{diedRelative,jdbcType=INTEGER},
+      </if>
+      <if test="curedRelative != null">
+        #{curedRelative,jdbcType=INTEGER},
+      </if>
+      <if test="asymptomaticRelative != null">
+        #{asymptomaticRelative,jdbcType=INTEGER},
+      </if>
+      <if test="nativeRelative != null">
+        #{nativeRelative,jdbcType=INTEGER},
+      </if>
+      <if test="screeningPositive != null">
+        #{screeningPositive,jdbcType=INTEGER},
+      </if>
+      <if test="overseasInputRelative != null">
+        #{overseasInputRelative,jdbcType=INTEGER},
+      </if>
+      <if test="icuDisable != null">
+        #{icuDisable,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="area != null">
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="noNativeRelativeDays != null">
+        #{noNativeRelativeDays,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.covid.component.domain.CovidDataExample" resultType="java.lang.Long">
+    select count(*) from covid_data
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update covid_data
+    <set>
+      <if test="row.id != null">
+        id = #{row.id,jdbcType=INTEGER},
+      </if>
+      <if test="row.confirmed != null">
+        confirmed = #{row.confirmed,jdbcType=INTEGER},
+      </if>
+      <if test="row.died != null">
+        died = #{row.died,jdbcType=INTEGER},
+      </if>
+      <if test="row.crued != null">
+        crued = #{row.crued,jdbcType=INTEGER},
+      </if>
+      <if test="row.asymptomatic != null">
+        asymptomatic = #{row.asymptomatic,jdbcType=INTEGER},
+      </if>
+      <if test="row.curConfirm != null">
+        cur_confirm = #{row.curConfirm,jdbcType=INTEGER},
+      </if>
+      <if test="row.curConfirmRelative != null">
+        cur_confirm_relative = #{row.curConfirmRelative,jdbcType=INTEGER},
+      </if>
+      <if test="row.relativeTime != null">
+        relative_time = #{row.relativeTime,jdbcType=BIGINT},
+      </if>
+      <if test="row.confirmedRelative != null">
+        confirmed_relative = #{row.confirmedRelative,jdbcType=INTEGER},
+      </if>
+      <if test="row.diedRelative != null">
+        died_relative = #{row.diedRelative,jdbcType=INTEGER},
+      </if>
+      <if test="row.curedRelative != null">
+        cured_relative = #{row.curedRelative,jdbcType=INTEGER},
+      </if>
+      <if test="row.asymptomaticRelative != null">
+        asymptomatic_relative = #{row.asymptomaticRelative,jdbcType=INTEGER},
+      </if>
+      <if test="row.nativeRelative != null">
+        native_relative = #{row.nativeRelative,jdbcType=INTEGER},
+      </if>
+      <if test="row.screeningPositive != null">
+        screening_positive = #{row.screeningPositive,jdbcType=INTEGER},
+      </if>
+      <if test="row.overseasInputRelative != null">
+        overseas_input_relative = #{row.overseasInputRelative,jdbcType=INTEGER},
+      </if>
+      <if test="row.icuDisable != null">
+        icu_disable = #{row.icuDisable,jdbcType=INTEGER},
+      </if>
+      <if test="row.updateTime != null">
+        update_time = #{row.updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="row.area != null">
+        area = #{row.area,jdbcType=VARCHAR},
+      </if>
+      <if test="row.noNativeRelativeDays != null">
+        no_native_relative_days = #{row.noNativeRelativeDays,jdbcType=VARCHAR},
+      </if>
+      <if test="row.createTime != null">
+        create_time = #{row.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update covid_data
+    set id = #{row.id,jdbcType=INTEGER},
+      confirmed = #{row.confirmed,jdbcType=INTEGER},
+      died = #{row.died,jdbcType=INTEGER},
+      crued = #{row.crued,jdbcType=INTEGER},
+      asymptomatic = #{row.asymptomatic,jdbcType=INTEGER},
+      cur_confirm = #{row.curConfirm,jdbcType=INTEGER},
+      cur_confirm_relative = #{row.curConfirmRelative,jdbcType=INTEGER},
+      relative_time = #{row.relativeTime,jdbcType=BIGINT},
+      confirmed_relative = #{row.confirmedRelative,jdbcType=INTEGER},
+      died_relative = #{row.diedRelative,jdbcType=INTEGER},
+      cured_relative = #{row.curedRelative,jdbcType=INTEGER},
+      asymptomatic_relative = #{row.asymptomaticRelative,jdbcType=INTEGER},
+      native_relative = #{row.nativeRelative,jdbcType=INTEGER},
+      screening_positive = #{row.screeningPositive,jdbcType=INTEGER},
+      overseas_input_relative = #{row.overseasInputRelative,jdbcType=INTEGER},
+      icu_disable = #{row.icuDisable,jdbcType=INTEGER},
+      update_time = #{row.updateTime,jdbcType=BIGINT},
+      area = #{row.area,jdbcType=VARCHAR},
+      no_native_relative_days = #{row.noNativeRelativeDays,jdbcType=VARCHAR},
+      create_time = #{row.createTime,jdbcType=TIMESTAMP}
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.covid.component.domain.CovidData">
+    update covid_data
+    <set>
+      <if test="confirmed != null">
+        confirmed = #{confirmed,jdbcType=INTEGER},
+      </if>
+      <if test="died != null">
+        died = #{died,jdbcType=INTEGER},
+      </if>
+      <if test="crued != null">
+        crued = #{crued,jdbcType=INTEGER},
+      </if>
+      <if test="asymptomatic != null">
+        asymptomatic = #{asymptomatic,jdbcType=INTEGER},
+      </if>
+      <if test="curConfirm != null">
+        cur_confirm = #{curConfirm,jdbcType=INTEGER},
+      </if>
+      <if test="curConfirmRelative != null">
+        cur_confirm_relative = #{curConfirmRelative,jdbcType=INTEGER},
+      </if>
+      <if test="relativeTime != null">
+        relative_time = #{relativeTime,jdbcType=BIGINT},
+      </if>
+      <if test="confirmedRelative != null">
+        confirmed_relative = #{confirmedRelative,jdbcType=INTEGER},
+      </if>
+      <if test="diedRelative != null">
+        died_relative = #{diedRelative,jdbcType=INTEGER},
+      </if>
+      <if test="curedRelative != null">
+        cured_relative = #{curedRelative,jdbcType=INTEGER},
+      </if>
+      <if test="asymptomaticRelative != null">
+        asymptomatic_relative = #{asymptomaticRelative,jdbcType=INTEGER},
+      </if>
+      <if test="nativeRelative != null">
+        native_relative = #{nativeRelative,jdbcType=INTEGER},
+      </if>
+      <if test="screeningPositive != null">
+        screening_positive = #{screeningPositive,jdbcType=INTEGER},
+      </if>
+      <if test="overseasInputRelative != null">
+        overseas_input_relative = #{overseasInputRelative,jdbcType=INTEGER},
+      </if>
+      <if test="icuDisable != null">
+        icu_disable = #{icuDisable,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="area != null">
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="noNativeRelativeDays != null">
+        no_native_relative_days = #{noNativeRelativeDays,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.covid.component.domain.CovidData">
+    update covid_data
+    set confirmed = #{confirmed,jdbcType=INTEGER},
+      died = #{died,jdbcType=INTEGER},
+      crued = #{crued,jdbcType=INTEGER},
+      asymptomatic = #{asymptomatic,jdbcType=INTEGER},
+      cur_confirm = #{curConfirm,jdbcType=INTEGER},
+      cur_confirm_relative = #{curConfirmRelative,jdbcType=INTEGER},
+      relative_time = #{relativeTime,jdbcType=BIGINT},
+      confirmed_relative = #{confirmedRelative,jdbcType=INTEGER},
+      died_relative = #{diedRelative,jdbcType=INTEGER},
+      cured_relative = #{curedRelative,jdbcType=INTEGER},
+      asymptomatic_relative = #{asymptomaticRelative,jdbcType=INTEGER},
+      native_relative = #{nativeRelative,jdbcType=INTEGER},
+      screening_positive = #{screeningPositive,jdbcType=INTEGER},
+      overseas_input_relative = #{overseasInputRelative,jdbcType=INTEGER},
+      icu_disable = #{icuDisable,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      area = #{area,jdbcType=VARCHAR},
+      no_native_relative_days = #{noNativeRelativeDays,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

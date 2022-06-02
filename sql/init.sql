@@ -1,0 +1,23 @@
+create table covid_data (
+    id int unsigned not null primary key auto_increment comment '主键',
+    confirmed int not null comment '累计确诊',
+    died int not null comment '累计死亡',
+    crued int not null comment '累计治愈',
+    asymptomatic int not null comment '累计无症状',
+    cur_confirm int not null comment '现有确诊',
+    cur_confirm_relative int not null comment '现有确诊新增',
+    relative_time bigint not null comment '相对时间（即昨天）',
+    confirmed_relative int not null comment '新增确诊',
+    died_relative int not null comment '新增死亡',
+    cured_relative int not null comment '新增治愈',
+    asymptomatic_relative int not null comment '新增无症状',
+    native_relative int not null comment '新增本土',
+    screening_positive int not null comment '',
+    overseas_input_relative int not null comment '境外输入',
+    icu_disable int not null comment '',
+    update_time bigint not null comment '更新时间',
+    area varchar(60) not null comment '地区',
+    no_native_relative_days varchar(60) default '' comment '连续无本土新增天数',
+    create_time datetime not null comment '创建时间',
+    unique key uidx_area_updatetime (area, update_time)
+) engine=InnoDB comment 'covid 数据';

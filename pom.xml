@@ -6,6 +6,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>fetcher</module>
+        <module>component</module>
     </modules>
 
     <parent>
