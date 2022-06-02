@@ -1,4 +1,4 @@
-package com.chy.covid.fetcher;
+package com.covid.fetcher;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;

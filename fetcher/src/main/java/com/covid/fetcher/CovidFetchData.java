@@ -1,4 +1,4 @@
-package com.chy.covid.fetcher;
+package com.covid.fetcher;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import lombok.Data;
  * @author Korben on 2022/6/1
  */
 @Data
-public class CovidData {
+public class CovidFetchData {
 
     /**
      * 累计确诊
@@ -55,7 +55,7 @@ public class CovidData {
     /**
      * 更新时间
      */
-    private int updateTime;
+    private long updateTime;
     /**
      * 现有确诊
      */

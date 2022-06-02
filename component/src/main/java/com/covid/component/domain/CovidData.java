@@ -1,6 +1,6 @@
 package com.covid.component.domain;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class CovidData {
     private Integer id;
@@ -41,7 +41,7 @@ public class CovidData {
 
     private String noNativeRelativeDays;
 
-    private Date createTime;
+    private LocalDateTime createTime;
 
     public Integer getId() {
         return id;
@@ -195,11 +195,11 @@ public class CovidData {
         this.noNativeRelativeDays = noNativeRelativeDays;
     }
 
-    public Date getCreateTime() {
+    public LocalDateTime getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
     }
 
