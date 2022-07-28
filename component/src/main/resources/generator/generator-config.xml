@@ -46,8 +46,14 @@
                              targetPackage="com.covid.component.mapper"
                              type="XMLMAPPER"/>
 
-<!--        <table tableName="covid_data" domainObjectName="CovidData"/>-->
-        <table tableName="readhub_daily_news" domainObjectName="ReadhubDailyNews"/>
-        <table tableName="readhub_daily_news_agg" domainObjectName="ReadhubDailyNewsAgg"/>
+        <table tableName="covid_data" domainObjectName="CovidData">
+            <generatedKey column="ID" sqlStatement="DB2" identity="true" />
+        </table>
+        <table tableName="readhub_daily_news" domainObjectName="ReadhubDailyNews">
+            <generatedKey column="ID" sqlStatement="DB2" identity="true" />
+        </table>
+        <table tableName="readhub_daily_news_agg" domainObjectName="ReadhubDailyNewsAgg">
+            <generatedKey column="ID" sqlStatement="DB2" identity="true" />
+        </table>
     </context>
 </generatorConfiguration>

@@ -102,19 +102,22 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.covid.component.domain.ReadhubDailyNews">
-    insert into readhub_daily_news (id, title, summary, 
-      site_name, news_created_at, news_date, 
-      created_at)
-    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, 
-      #{siteName,jdbcType=VARCHAR}, #{newsCreatedAt,jdbcType=VARCHAR}, #{newsDate,jdbcType=DATE}, 
-      #{createdAt,jdbcType=TIMESTAMP})
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      VALUES IDENTITY_VAL_LOCAL()
+    </selectKey>
+    insert into readhub_daily_news (title, summary, site_name, 
+      news_created_at, news_date, created_at
+      )
+    values (#{title,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, #{siteName,jdbcType=VARCHAR}, 
+      #{newsCreatedAt,jdbcType=VARCHAR}, #{newsDate,jdbcType=DATE}, #{createdAt,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.covid.component.domain.ReadhubDailyNews">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      VALUES IDENTITY_VAL_LOCAL()
+    </selectKey>
     insert into readhub_daily_news
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
       <if test="title != null">
         title,
       </if>
@@ -135,9 +138,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="title != null">
         #{title,jdbcType=VARCHAR},
       </if>
