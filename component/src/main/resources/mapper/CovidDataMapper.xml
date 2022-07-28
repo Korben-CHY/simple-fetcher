@@ -119,7 +119,7 @@
   </delete>
   <insert id="insert" parameterType="com.covid.component.domain.CovidData">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
-      VALUES IDENTITY_VAL_LOCAL()
+      SELECT LAST_INSERT_ID()
     </selectKey>
     insert into covid_data (confirmed, died, crued, 
       asymptomatic, cur_confirm, cur_confirm_relative, 
@@ -138,7 +138,7 @@
   </insert>
   <insert id="insertSelective" parameterType="com.covid.component.domain.CovidData">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
-      VALUES IDENTITY_VAL_LOCAL()
+      SELECT LAST_INSERT_ID()
     </selectKey>
     insert into covid_data
     <trim prefix="(" suffix=")" suffixOverrides=",">
