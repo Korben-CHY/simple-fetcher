@@ -69,7 +69,7 @@ public class ReadhubFetcher {
         newsData.setTitle(newsDataJsonObj.getString("title"));
         newsData.setSummary(newsDataJsonObj.getString("summary"));
         newsData.setNewsCreatedAt(newsDataJsonObj.getString("createdAt"));
-        newsData.setSiteNameDisplay(newsDataJsonObj.getString("CNBeta"));
+        newsData.setSiteNameDisplay(newsDataJsonObj.getString("siteNameDisplay"));
 
         JSONArray newsAggListArr = newsDataJsonObj.getJSONArray("newsAggList");
         List<ReadhubNewsAgg> aggs = new ArrayList<>(newsAggListArr.size());
