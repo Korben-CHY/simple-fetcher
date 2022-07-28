@@ -46,6 +46,8 @@
                              targetPackage="com.covid.component.mapper"
                              type="XMLMAPPER"/>
 
-        <table tableName="covid_data" domainObjectName="CovidData"/>
+<!--        <table tableName="covid_data" domainObjectName="CovidData"/>-->
+        <table tableName="readhub_daily_news" domainObjectName="ReadhubDailyNews"/>
+        <table tableName="readhub_daily_news_agg" domainObjectName="ReadhubDailyNewsAgg"/>
     </context>
 </generatorConfiguration>

@@ -6,7 +6,7 @@ import lombok.Data;
  * @author Korben on 2022/6/1
  */
 @Data
-public class CovidFetchData {
+public class CovidData {
 
     /**
      * 累计确诊

@@ -1,10 +1,9 @@
 package com.covid.component.service;
 
-import com.covid.component.domain.CovidData;
 import com.covid.component.domain.CovidDataExample;
 import com.covid.component.mapper.CovidDataMapper;
 import com.covid.fetcher.CovidDataFetcher;
-import com.covid.fetcher.CovidFetchData;
+import com.covid.fetcher.CovidData;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.BeanUtils;
@@ -23,31 +22,31 @@ public class CovidService {
     @Autowired
     private CovidDataFetcher covidDataFetcher;
 
-    public void saveCovidData(CovidFetchData covidFetchData) {
-        CovidData covidData = getByAreaAndUpdateTime(covidFetchData.getArea(),
+    public void fetchCovidDataAndSaveToDb() throws Exception {
+        List<CovidData> covidData = covidDataFetcher.fetchCovidData();
+        covidData.forEach(this::saveCovidData);
+    }
+
+    private void saveCovidData(CovidData covidFetchData) {
+        com.covid.component.domain.CovidData covidData = getByAreaAndUpdateTime(covidFetchData.getArea(),
                 covidFetchData.getUpdateTime());
         if (covidData != null) {
             toCovidData(covidData, covidFetchData);
             covidDataMapper.updateByPrimaryKey(covidData);
         } else {
-            covidData = new CovidData();
+            covidData = new com.covid.component.domain.CovidData();
             toCovidData(covidData, covidFetchData);
             covidData.setCreateTime(LocalDateTime.now());
             covidDataMapper.insert(covidData);
         }
     }
 
-    public void fetchCovidDataAndSaveToDb() throws Exception {
-        List<CovidFetchData> covidFetchData = covidDataFetcher.fetchCovidData();
-        covidFetchData.forEach(this::saveCovidData);
-    }
-
-    private CovidData getByAreaAndUpdateTime(String area, long updateTime) {
+    private com.covid.component.domain.CovidData getByAreaAndUpdateTime(String area, long updateTime) {
         CovidDataExample dataExample = new CovidDataExample();
         dataExample.createCriteria()
                 .andAreaEqualTo(area)
                 .andUpdateTimeEqualTo(updateTime);
-        List<CovidData> covidData = covidDataMapper.selectByExample(dataExample);
+        List<com.covid.component.domain.CovidData> covidData = covidDataMapper.selectByExample(dataExample);
         if (covidData.isEmpty()) {
             return null;
         }
@@ -56,7 +55,8 @@ public class CovidService {
         return covidData.get(0);
     }
 
-    private void toCovidData(CovidData covidData, CovidFetchData covidFetchData) {
+    private void toCovidData(
+            com.covid.component.domain.CovidData covidData, CovidData covidFetchData) {
         BeanUtils.copyProperties(covidFetchData, covidData);
     }
 }

@@ -11,14 +11,23 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @EnableScheduling
-public class CovidDataFetchTask {
+public class FetchTask {
 
     @Autowired
     private CovidService covidService;
+
+    @Autowired
+    private ReadhubService readhubService;
 
     @SneakyThrows
     @Scheduled(cron = "0 0 8-9 * * *")
     public void fetchCovidDataAndSaveToDb() {
         covidService.fetchCovidDataAndSaveToDb();
+    }
+
+    @SneakyThrows
+    @Scheduled(cron = "0 0 6 * * *")
+    public void fetchReadhubNewsAndSaveToDb() {
+        readhubService.fetchReadhubNewsAndSaveToDb();
     }
 }
