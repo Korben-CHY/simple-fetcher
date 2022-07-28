@@ -1,5 +1,6 @@
 package com.covid.component.service;
 
+import com.alibaba.fastjson.JSON;
 import com.covid.component.domain.ReadhubDailyNews;
 import com.covid.component.domain.ReadhubDailyNewsAgg;
 import com.covid.component.domain.ReadhubDailyNewsExample;
@@ -10,6 +11,8 @@ import com.covid.fetcher.ReadhubFetcher;
 import com.covid.fetcher.ReadhubNewsAgg;
 import java.time.LocalDateTime;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +21,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ReadhubService {
+
+    private static final Logger logger = LoggerFactory.getLogger(ReadhubService.class);
 
     @Autowired
     private ReadhubFetcher readhubFetcher;
@@ -35,6 +40,7 @@ public class ReadhubService {
         }
 
         List<ReadhubDailyNewsData> readhubDailyNewsDataList = readhubFetcher.fetchReadhubDailyNews();
+        logger.info("#fetchReadhubNewsAndSaveToDb# {}", JSON.toJSONString(readhubDailyNewsDataList, true));
 
         saveAllNewsToDb(now, readhubDailyNewsDataList);
     }
