@@ -50,9 +50,7 @@ public class ReadhubService {
             ReadhubDailyNews dailyNews = saveDailyNews(now, data);
 
             List<ReadhubNewsAgg> newsAggList = data.getNewsAggList();
-            newsAggList.forEach(agg -> {
-                saveNewsAgg(now, dailyNews, agg);
-            });
+            newsAggList.forEach(agg -> saveNewsAgg(now, dailyNews, agg));
         });
     }
 
