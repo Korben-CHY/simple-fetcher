@@ -26,7 +26,7 @@ public class FetchTask {
     }
 
     @SneakyThrows
-    @Scheduled(cron = "0 0 6 * * *")
+    @Scheduled(cron = "0 0 10 * * *")
     public void fetchReadhubNewsAndSaveToDb() {
         readhubService.fetchReadhubNewsAndSaveToDb();
     }
